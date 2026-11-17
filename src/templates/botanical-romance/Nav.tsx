@@ -55,11 +55,12 @@ export function Nav() {
 
   useEffect(() => scrollY.on("change", (y) => setSolid(y > 40)), [scrollY]);
 
-  // Menu: lock scroll, focus the first entry, close on Escape.
+  // Menu: lock scroll, focus the first entry, close on Escape. The unlock clears the inline
+  // style outright: restoring a captured value can re-apply a stale "hidden" and leave the
+  // page permanently unscrollable.
   useEffect(() => {
     if (!menuOpen) return;
     const root = document.documentElement;
-    const previous = root.style.overflow;
     root.style.overflow = "hidden";
     firstLink.current?.focus();
     const onKey = (e: KeyboardEvent) => {
@@ -70,7 +71,7 @@ export function Nav() {
     };
     document.addEventListener("keydown", onKey);
     return () => {
-      root.style.overflow = previous;
+      root.style.removeProperty("overflow");
       document.removeEventListener("keydown", onKey);
     };
   }, [menuOpen]);

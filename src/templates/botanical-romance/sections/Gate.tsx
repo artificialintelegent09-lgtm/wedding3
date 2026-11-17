@@ -27,7 +27,7 @@ const item: Variants = {
  * photograph swells past the viewer and the paper falls away.
  */
 export function Gate() {
-  const { data, locale, guestName } = useInvitation();
+  const { data, locale, guestName, opened } = useInvitation();
   const { b, open } = useBotanical();
   const { bride, groom } = data.couple;
   const photo = gatePhoto(data);
@@ -37,7 +37,10 @@ export function Gate() {
       role="dialog"
       aria-modal="true"
       aria-label={`${bride.nickname} & ${groom.nickname}`}
-      className="bot-paper fixed inset-0 z-[90] overflow-hidden bg-linen text-forest"
+      // Once opened, the gate is only scenery while it fades out: it must stop intercepting
+      // pointer and scroll events immediately (its inner overflow-y-auto/overscroll-contain
+      // scroller would otherwise swallow wheel and touch scrolling for as long as it exists).
+      className={`bot-paper fixed inset-0 z-[90] overflow-hidden bg-linen text-forest ${opened ? "pointer-events-none" : ""}`}
       exit={{ opacity: 0, transition: { duration: 0.8, delay: 0.7, ease: soft } }}
     >
       <div className="absolute inset-0 overflow-y-auto overscroll-contain">

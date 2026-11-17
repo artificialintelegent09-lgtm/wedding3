@@ -59,7 +59,6 @@ export function Lightbox({
   useEffect(() => {
     if (!isOpen) return;
     const previouslyFocused = document.activeElement as HTMLElement | null;
-    const { overflow } = document.documentElement.style;
     document.documentElement.style.overflow = "hidden";
     closeRef.current?.focus();
 
@@ -84,7 +83,8 @@ export function Lightbox({
     document.addEventListener("keydown", onKey);
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = overflow;
+      // Clear outright: restoring a captured value can re-apply a stale "hidden".
+      document.documentElement.style.removeProperty("overflow");
       previouslyFocused?.focus?.();
     };
   }, [isOpen, go, onChange]);

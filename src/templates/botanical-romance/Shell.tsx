@@ -53,14 +53,15 @@ export function Shell({ data, children }: { data: InvitationData; children: Reac
     }
   }, []);
 
-  // The page cannot scroll while the gate is up.
+  // The page cannot scroll while the gate is up. The unlock clears the inline style outright:
+  // restoring a captured "previous" value can re-apply a stale "hidden" and leave the page
+  // permanently unscrollable (the stylesheet defines no overflow for <html>, so clearing is safe).
   useEffect(() => {
     if (opened) return;
     const root = document.documentElement;
-    const previous = root.style.overflow;
     root.style.overflow = "hidden";
     return () => {
-      root.style.overflow = previous;
+      root.style.removeProperty("overflow");
     };
   }, [opened]);
 
