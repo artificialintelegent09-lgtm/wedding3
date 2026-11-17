@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { lt } from "@/lib/i18n";
 import type { InvitationData } from "@/types/invitation";
 
 export function buildMetadata(data: InvitationData): Metadata {
@@ -25,7 +26,7 @@ export function eventJsonLd(data: InvitationData): string {
   const graph = data.events.map((e) => ({
     "@context": "https://schema.org",
     "@type": "Event",
-    name: `${data.couple.bride.nickname} & ${data.couple.groom.nickname}: ${e.title}`,
+    name: `${data.couple.bride.nickname} & ${data.couple.groom.nickname}: ${lt(e.title, data.locale)}`,
     startDate: e.startsAt,
     endDate: e.endsAt,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",

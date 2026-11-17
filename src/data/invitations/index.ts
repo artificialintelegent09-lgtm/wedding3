@@ -8,8 +8,11 @@ const all: InvitationData[] = [amelia_rafael, modern_muse_demo, botanical_romanc
 
 const bySlug = new Map(all.map((i) => [i.slug, i]));
 
-/** Slug opened by the site root (`/`). Modern Muse is the default; Classic Luxury stays at /amelia-rafael/ and Botanical Romance lives at /amelia-rafael-botanical/. */
-export const DEFAULT_SLUG = modern_muse_demo.slug;
+/**
+ * Slug opened by the site root (`/`). This project is the Template 03 deployment, so the root serves Botanical Romance.
+ * The other designs stay reachable by slug: /amelia-rafael/ (Classic Luxury) and /amelia-rafael-muse/ (Modern Muse).
+ */
+export const DEFAULT_SLUG = botanical_romance_demo.slug;
 
 export function getInvitation(slug: string): InvitationData | undefined {
   return bySlug.get(slug);
