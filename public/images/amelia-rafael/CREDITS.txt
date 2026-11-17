@@ -1,0 +1,21 @@
+Demo photography — all from Pexels (https://www.pexels.com), used under the
+Pexels license (free to use, attribution not required). Replace these files
+with the couple's own photos for a real invitation.
+
+File                     Source photo
+cover.webp, gallery-7    https://www.pexels.com/photo/14419577/
+hero.webp, og.jpg        https://www.pexels.com/photo/38677864/
+bride.webp               https://www.pexels.com/photo/38677865/
+groom.webp, gallery-1    https://www.pexels.com/photo/38677869/
+gallery-2                https://www.pexels.com/photo/38677850/
+gallery-3                https://www.pexels.com/photo/2852135/
+gallery-4                https://www.pexels.com/photo/38677868/
+gallery-5                https://www.pexels.com/photo/38676662/
+gallery-6                https://www.pexels.com/photo/39367593/
+gallery-8                https://www.pexels.com/photo/36766850/
+gallery-9                https://www.pexels.com/photo/38677848/
+story-1                  https://www.pexels.com/photo/6684866/
+story-2                  https://www.pexels.com/photo/40635029/
+story-3                  https://www.pexels.com/photo/38676666/
+story-4                  https://www.pexels.com/photo/38677866/
+closing.webp             https://www.pexels.com/photo/38677862/

@@ -1,0 +1,361 @@
+@import "tailwindcss";
+
+/*
+ * CINEMATIC BOTANICAL ROMANCE: design tokens.
+ * Oxblood and antique ivory carry the contrast; champagne gold and dusty rose
+ * are accents only. Components use semantic names (bg-primary, text-gold…);
+ * a template sets the --tpl-* values via `data-template`.
+ */
+:root,
+[data-template="royal-romance"] {
+  --tpl-deep: #240810;
+  --tpl-primary: #4a0f1c;
+  --tpl-primary-soft: #6a1c2c;
+  --tpl-paper: #f5eddf;
+  --tpl-paper-2: #eadecb;
+  --tpl-ink: #271714;
+  --tpl-muted: #6f5c54;
+  --tpl-gold: #b69d6e;
+  --tpl-gold-light: #d8c8a4;
+  --tpl-gold-deep: #7a6338;
+  --tpl-rose: #c9a39d;
+  --tpl-rose-light: #e8d3cc;
+  --tpl-rose-deep: #8f5f5d;
+}
+
+@theme inline {
+  --color-deep: var(--tpl-deep);
+  --color-primary: var(--tpl-primary);
+  --color-primary-soft: var(--tpl-primary-soft);
+  --color-paper: var(--tpl-paper);
+  --color-paper-2: var(--tpl-paper-2);
+  --color-ink: var(--tpl-ink);
+  --color-muted: var(--tpl-muted);
+  --color-gold: var(--tpl-gold);
+  --color-gold-light: var(--tpl-gold-light);
+  --color-gold-deep: var(--tpl-gold-deep);
+  --color-rose: var(--tpl-rose);
+  --color-rose-light: var(--tpl-rose-light);
+  --color-rose-deep: var(--tpl-rose-deep);
+
+  /* Modern Muse brand colours: fixed values, usable outside [data-template] (e.g. in portals). */
+  --color-espresso: #211f1d;
+  --color-ivory: #f4f0e8;
+  --color-ivory-2: #e9e2d4;
+  --color-terracotta: #a64d45;
+  --color-terracotta-deep: #8c3e37;
+  --color-terracotta-soft: #d98f84;
+  --color-taupe: #b8a991;
+  --color-olive: #777c67;
+  --color-olive-deep: #4f5342;
+
+  --font-display: var(--tpl-font-display, var(--font-bodoni)), "Bodoni Moda", "Didot", Georgia, serif;
+  --font-sans: var(--tpl-font-sans, var(--font-jost)), "Jost", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-sway: sway 14s ease-in-out infinite;
+  --animate-drift: drift 2.8s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.2deg); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--tpl-deep);
+  color: var(--tpl-ink);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Bodoni Moda is a variable "optical size" font: at large sizes its hairlines are razor thin and
+ * disappear at 1x pixel density (an italic "H" loses its crossbar). Base rules live in @layer base
+ * so utilities can override them; only the very large names opt into the high-contrast cut.
+ */
+@layer base {
+  .font-display {
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" 18;
+  }
+  .font-display.italic,
+  .italic .font-display,
+  .italic.font-display {
+    font-variation-settings: "opsz" 8;
+  }
+}
+
+::selection {
+  background: var(--tpl-primary);
+  color: var(--tpl-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Surfaces: each section picks one; all share the same grain          */
+/* ------------------------------------------------------------------ */
+
+.surface {
+  /* Give the element its own positioning (relative/fixed): the grain layer is absolutely placed inside it. */
+  isolation: isolate;
+}
+
+/* Fine film/paper grain. Multiply on light paper, soft-light on dark. */
+.surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .18 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.35;
+}
+
+.surface-paper {
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255, 252, 244, 0.7), transparent 60%),
+    radial-gradient(90% 60% at 100% 100%, rgba(201, 163, 157, 0.14), transparent 70%),
+    var(--tpl-paper);
+}
+
+.surface-aged {
+  background:
+    radial-gradient(100% 60% at 0% 0%, rgba(255, 250, 240, 0.55), transparent 65%),
+    radial-gradient(80% 60% at 100% 100%, rgba(122, 99, 56, 0.1), transparent 70%),
+    var(--tpl-paper-2);
+}
+
+.surface-rose {
+  background:
+    radial-gradient(100% 70% at 50% 0%, rgba(255, 244, 238, 0.45), transparent 65%),
+    var(--tpl-rose-light);
+}
+
+.surface-oxblood {
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(122, 32, 52, 0.75), transparent 70%),
+    radial-gradient(80% 50% at 50% 100%, rgba(106, 28, 44, 0.5), transparent 70%),
+    var(--tpl-primary);
+}
+
+.surface-espresso {
+  background:
+    radial-gradient(90% 50% at 50% 0%, rgba(74, 15, 28, 0.55), transparent 70%),
+    var(--tpl-deep);
+}
+
+.surface-oxblood::after,
+.surface-espresso::after {
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+}
+
+/* Keyboard focus that suits both dark and light surfaces. */
+:focus-visible {
+  outline: 1.5px solid var(--tpl-gold);
+  outline-offset: 3px;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Vertical running text (hero date, section labels). */
+.vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+/* ------------------------------------------------------------------ */
+/* MODERN MUSE: Editorial × Bold                                       */
+/* Espresso and ivory carry the contrast; terracotta, taupe and olive  */
+/* are supporting accents. Cormorant Garamond + Manrope.               */
+/* ------------------------------------------------------------------ */
+
+[data-template="modern-muse"] {
+  --tpl-deep: #211f1d;
+  --tpl-primary: #a64d45;
+  --tpl-primary-soft: #8c3e37;
+  --tpl-paper: #f4f0e8;
+  --tpl-paper-2: #e9e2d4;
+  --tpl-ink: #211f1d;
+  --tpl-muted: #645e52;
+  --tpl-gold: #b8a991;
+  --tpl-gold-light: #d8cebb;
+  --tpl-gold-deep: #6f6249;
+  --tpl-rose: #777c67;
+  --tpl-rose-light: #dad9cc;
+  --tpl-rose-deep: #5e6350;
+  --tpl-font-display: var(--font-cormorant);
+  --tpl-font-sans: var(--font-manrope);
+}
+
+body:has([data-template="modern-muse"]) {
+  background: #211f1d;
+  font-weight: 400;
+}
+
+/* Fine paper grain used on light editorial surfaces. */
+.muse-grain {
+  isolation: isolate;
+}
+.muse-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.muse-grain-dark::after {
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+}
+
+/* Outlined display text: for oversized numerals that sit behind content. */
+.muse-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+}
+
+/* A barcode for the magazine cover: pure CSS, decorative. */
+.muse-barcode {
+  background-image: repeating-linear-gradient(
+    90deg,
+    currentColor 0 2px,
+    transparent 2px 4px,
+    currentColor 4px 5px,
+    transparent 5px 8px,
+    currentColor 8px 11px,
+    transparent 11px 13px,
+    currentColor 13px 14px,
+    transparent 14px 17px
+  );
+}
+
+/* Drop cap for the first paragraph of a chronicle chapter. */
+.muse-dropcap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4.6em;
+  line-height: 0.78;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--color-terracotta);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ */
+/* BOTANICAL ROMANCE: A Living Garden Experience                       */
+/* Warm ivory and natural green carry the page; muted rose and taupe   */
+/* are controlled accents. Cormorant Garamond + Manrope.               */
+/* ------------------------------------------------------------------ */
+
+[data-template="botanical-romance"] {
+  /* Brand palette as plain variables: SVG art reads these directly. */
+  --bot-forest: #263d32;
+  --bot-sage: #a7b5a0;
+  --bot-moss: #78866a;
+  --bot-linen: #f4f0e6;
+  --bot-blush: #c99d98;
+  --bot-fawn: #b5a995;
+
+  /* Semantic tokens: the shared forms, buttons and ornaments pick these up. */
+  --tpl-deep: #1c2d24;
+  --tpl-primary: #263d32;
+  --tpl-primary-soft: #36533f;
+  --tpl-paper: #f4f0e6;
+  --tpl-paper-2: #e9e4d5;
+  --tpl-ink: #1f2d25;
+  --tpl-muted: #56625a;
+  --tpl-gold: #b5a995;
+  --tpl-gold-light: #d6cebf;
+  --tpl-gold-deep: #766b57;
+  --tpl-rose: #c99d98;
+  --tpl-rose-light: #ecdcd8;
+  --tpl-rose-deep: #86584f;
+  --tpl-font-display: var(--font-botanical-serif);
+  --tpl-font-sans: var(--font-botanical-sans);
+}
+
+@theme inline {
+  --color-forest: #263d32;
+  --color-forest-deep: #1c2d24;
+  --color-sage: #a7b5a0;
+  --color-moss: #78866a;
+  --color-moss-deep: #4f5c44;
+  --color-linen: #f4f0e6;
+  --color-linen-2: #e9e4d5;
+  --color-mist: #e0e4d7;
+  --color-blush: #c99d98;
+  --color-blush-deep: #86584f;
+  --color-fawn: #b5a995;
+  --color-fawn-deep: #766b57;
+}
+
+body:has([data-template="botanical-romance"]) {
+  background: #263d32;
+  font-weight: 400;
+}
+
+/* Handmade paper: a soft fibre grain over the surface colour. Needs `relative` on the element. */
+.bot-paper {
+  isolation: isolate;
+}
+.bot-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72 .9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .34 0 0 0 0 .26 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.bot-paper-dark::after {
+  mix-blend-mode: soft-light;
+  opacity: 0.45;
+}
+
+/* One consistent natural grade for every photograph: slightly muted, warm, a breath of green. */
+.bot-photo {
+  filter: saturate(0.8) sepia(0.12) hue-rotate(-6deg) contrast(0.98) brightness(1.02);
+}
+
+/* Plant-marker / tag silhouette for guestbook notes. */
+.bot-tag {
+  clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+
+/* A strip of translucent washi tape. */
+.bot-tape {
+  background: repeating-linear-gradient(135deg, rgba(201, 157, 152, 0.55) 0 6px, rgba(236, 220, 216, 0.6) 6px 12px);
+}
+
+/* Illustrations on dark surfaces: stems, veins and outlines turn pale sage. */
+.bot-ink-light {
+  --bot-ink: #cdd6c7;
+}
