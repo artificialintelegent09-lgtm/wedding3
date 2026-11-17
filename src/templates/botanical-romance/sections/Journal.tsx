@@ -28,8 +28,16 @@ function Unit({ value, label }: { value: number | null; label: string }) {
 function Countdown() {
   const { data, copy } = useInvitation();
   const { b } = useBotanical();
+  // `weddingDate` carries an explicit UTC offset (+07:00), so this is one absolute instant: the countdown is
+  // identical for a guest in any timezone, and the Asia/Jakarta wall clock is only applied when formatting.
   const now = useNowSeconds();
-  const remaining = now === null ? null : Math.max(0, Math.floor(new Date(data.weddingDate).getTime() / 1000) - now);
+  const target = Math.floor(new Date(data.weddingDate).getTime() / 1000);
+  // After the last event has finished the celebration is over; between the start and that moment it is under way.
+  const finish = Math.max(target, ...data.events.map((e) => Math.floor(new Date(e.endsAt).getTime() / 1000)).filter(Number.isFinite));
+  const valid = Number.isFinite(target);
+  // The remaining time is clamped at zero: it never counts down into negative numbers.
+  const remaining = now === null || !valid ? null : Math.max(0, target - now);
+  const over = now !== null && valid && now >= finish;
 
   const d = remaining === null ? null : Math.floor(remaining / 86400);
   const h = remaining === null ? null : Math.floor((remaining % 86400) / 3600);
@@ -43,7 +51,7 @@ function Countdown() {
         <p className="text-center text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-sage">{b.journal.countdown}</p>
         {remaining === 0 ? (
           <p role="status" className="mt-5 text-center font-display text-3xl italic">
-            {copy.events.started}
+            {over ? b.journal.ended : copy.events.started}
           </p>
         ) : (
           <div role="timer" aria-label={copy.events.countdownLabel} className="mt-6 grid grid-cols-4 divide-x divide-sage/30">

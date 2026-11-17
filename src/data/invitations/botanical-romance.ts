@@ -20,4 +20,11 @@ export const botanical_romance_demo: InvitationData = {
     ...amelia_rafael.meta,
     title: "Amelia & Rafael — A Love Story in Full Bloom",
   },
+  music: {
+    // Never autoplays: the guest's tap on the gate's open button starts it, the header control pauses it.
+    // Place the licensed track at public/audio/lagu-dunia-yang-nanti.mp3. Until the file exists the music
+    // control stays hidden, so there is no dead button.
+    src: "/audio/lagu-dunia-yang-nanti.mp3",
+    title: "Lagu Dunia Yang Nanti",
+  },
 };

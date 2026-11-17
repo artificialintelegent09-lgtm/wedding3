@@ -11,8 +11,14 @@ export interface BotanicalContextValue {
   sections: SectionKey[];
   /** "03": zero-padded position of a section. */
   no: (key: SectionKey) => string;
-  /** Opens the garden gate. */
+  /** Opens the garden gate (and starts the music, inside the same click). */
   open: () => void;
+  music: {
+    /** False when the invitation has no music, or the file is missing: the control is hidden. */
+    available: boolean;
+    playing: boolean;
+    toggle: () => void;
+  };
 }
 
 export const BotanicalContext = createContext<BotanicalContextValue | null>(null);

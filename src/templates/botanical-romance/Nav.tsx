@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useInvitation } from "@/components/InvitationContext";
 import { formatLongDate } from "@/lib/datetime";
@@ -44,7 +45,7 @@ function useCurrentSection(sections: SectionKey[], enabled: boolean): SectionKey
  */
 export function Nav() {
   const { data, opened, locale, setLocale } = useInvitation();
-  const { b, sections } = useBotanical();
+  const { b, sections, music } = useBotanical();
   const [menuOpen, setMenuOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const current = useCurrentSection(sections, opened);
@@ -108,6 +109,22 @@ export function Nav() {
         )}
 
         <div className="flex items-center gap-1 sm:gap-3">
+          {opened && music.available && (
+            <button
+              type="button"
+              onClick={music.toggle}
+              aria-pressed={music.playing}
+              aria-label={music.playing ? b.nav.musicPause : b.nav.musicPlay}
+              className="grid h-11 w-11 place-items-center transition-opacity hover:opacity-70"
+            >
+              {music.playing ? (
+                <Volume2 className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.6} aria-hidden="true" />
+              ) : (
+                <VolumeX className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.6} aria-hidden="true" />
+              )}
+            </button>
+          )}
+
           <div role="group" aria-label={b.nav.language} className="flex items-center text-[0.68rem] font-semibold tracking-[0.2em]">
             {LANGS.map((l, i) => {
               const active = locale === l.value;

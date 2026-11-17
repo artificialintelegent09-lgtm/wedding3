@@ -12,6 +12,7 @@ import { getBotanicalCopy } from "./copy";
 import { sans, serif } from "./fonts";
 import { Nav } from "./Nav";
 import { Gate } from "./sections/Gate";
+import { useMusic } from "./use-music";
 
 // Shared with the other templates on purpose: a guest's language choice follows them between invitations.
 const LOCALE_KEY = "wedding-locale";
@@ -28,6 +29,7 @@ export function Shell({ data, children }: { data: InvitationData; children: Reac
   // (reading storage in the initializer would mismatch the prerendered HTML).
   const [locale, setLocaleState] = useState<Locale>(data.locale);
   const guestName = useGuestName();
+  const { start, available, playing, toggle } = useMusic(data.music?.src);
 
   useEffect(() => {
     try {
@@ -67,8 +69,10 @@ export function Shell({ data, children }: { data: InvitationData; children: Reac
 
   const open = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
+    // The guest's click is the user gesture that lets the browser play sound.
+    start();
     setOpened(true);
-  }, []);
+  }, [start]);
 
   const sections = useMemo(() => getSections(data), [data]);
   const copy = getCopy(locale);
@@ -78,8 +82,9 @@ export function Shell({ data, children }: { data: InvitationData; children: Reac
       sections,
       no: (key) => pad2(Math.max(0, sections.indexOf(key)) + 1),
       open,
+      music: { available, playing, toggle },
     }),
-    [locale, sections, open],
+    [locale, sections, open, available, playing, toggle],
   );
 
   return (

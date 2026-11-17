@@ -51,7 +51,7 @@ const en = {
     entry: "Entry",
     when: "When",
     where: "Where",
-    wishes: "Dress code",
+    ended: "Our celebration has taken place. Thank you for being part of our garden.",
   },
   venue: {
     label: "Garden Map",
@@ -98,6 +98,8 @@ const en = {
     closeMenu: "Close menu",
     label: "Invitation sections",
     progress: "Reading progress",
+    musicPlay: "Play music",
+    musicPause: "Pause music",
   },
 };
 
@@ -149,7 +151,7 @@ const id: BotanicalCopy = {
     entry: "Catatan",
     when: "Waktu",
     where: "Tempat",
-    wishes: "Busana",
+    ended: "Acara kami telah usai. Terima kasih telah menjadi bagian dari taman kami.",
   },
   venue: {
     label: "Peta Taman",
@@ -196,6 +198,8 @@ const id: BotanicalCopy = {
     closeMenu: "Tutup menu",
     label: "Bagian undangan",
     progress: "Kemajuan membaca",
+    musicPlay: "Putar musik",
+    musicPause: "Jeda musik",
   },
 };
 
