@@ -87,7 +87,7 @@ export function Gate() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: soft }}
-                className="mt-2 break-words font-display text-[clamp(2rem,8vw,3.2rem)] font-light italic leading-[1.05]"
+                className="mt-2 [overflow-wrap:anywhere] font-display text-[clamp(2rem,8vw,3.2rem)] font-light italic leading-[1.05]"
               >
                 {guestName || m.gate.guestFallback}
               </motion.p>

@@ -6,7 +6,9 @@ const subscribe = () => () => {};
 
 function read(): string {
   const raw = new URLSearchParams(window.location.search).get("to") ?? "";
-  return raw.replace(/[\u0000-\u001F\u007F]/g, "").replace(/\s+/g, " ").trim().slice(0, 60);
+  const cleaned = raw.replace(/[\u0000-\u001F\u007F]/g, "").replace(/\s+/g, " ").trim();
+  // Cut by code point, not UTF-16 unit, so an emoji is never split in half.
+  return Array.from(cleaned).slice(0, 60).join("").trimEnd();
 }
 
 /**
