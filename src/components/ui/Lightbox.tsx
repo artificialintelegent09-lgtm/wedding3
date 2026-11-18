@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import { bodoni, jost } from "@/templates/royal-romance/fonts";
 import { useInvitation } from "@/components/InvitationContext";
 import type { GalleryImage } from "@/types/invitation";
 
@@ -92,7 +93,7 @@ export function Lightbox({ images, index, onChange }: LightboxProps) {
           role="dialog"
           aria-modal="true"
           aria-label={copy.gallery.counter(index + 1, images.length)}
-          className="fixed inset-0 z-[100] flex flex-col bg-deep/[0.97]"
+          className={`${bodoni.variable} ${jost.variable} font-sans fixed inset-0 z-[100] flex flex-col bg-deep/[0.97]`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

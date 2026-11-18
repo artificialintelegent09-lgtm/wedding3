@@ -37,6 +37,7 @@ Personalise the cover for each guest with `?to=` (works in both languages):
 | `npm run preview` | Serve `./out` locally (via `npx serve`) |
 | `npm run typecheck` / `npm run lint` | TypeScript and ESLint |
 | `npm run images:optimize -- <in> <out>` | Resize/compress photos and strip GPS metadata |
+| `npm run images:responsive` | Generate the 640 / 1080 / 1440 px variants of every photo in `public/images` (run after adding or replacing a photo) |
 
 ## Creating an invitation
 
@@ -44,6 +45,8 @@ Personalise the cover for each guest with `?to=` (works in both languages):
 2. Put photos in `public/images/<your-slug>/` and point the data file at them.
    Run `npm run images:optimize -- ./originals public/images/<your-slug>` first: there is no image
    optimizer on a static site, so photos are served exactly as you provide them (aim for ≲ 300 KB each).
+   Then run `npm run images:responsive`: it writes small/medium/large variants next to each photo and
+   lists them in `src/lib/image-variants.json`, so phones download the small file. Commit the generated files.
 3. Register it in `src/data/invitations/index.ts`. It is then built at `/<slug>/`.
 
 ### RSVP and wishes configuration

@@ -9,6 +9,7 @@ import { useInvitation } from "@/components/InvitationContext";
 import type { GalleryImage } from "@/types/invitation";
 import { useBotanical } from "./BotanicalContext";
 import { describe, ROMAN } from "./config";
+import { sans, serif } from "./fonts";
 
 const SWIPE_DISTANCE = 60;
 const SWIPE_VELOCITY = 400;
@@ -108,7 +109,8 @@ export function Lightbox({
           role="dialog"
           aria-modal="true"
           aria-label={copy.gallery.counter(index + 1, images.length)}
-          className="fixed inset-0 z-[100] flex flex-col bg-forest-deep/[0.98] font-sans text-linen"
+          data-template="botanical-romance"
+          className={`${serif.variable} ${sans.variable} fixed inset-0 z-[100] flex flex-col bg-forest-deep/[0.98] font-sans text-linen`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

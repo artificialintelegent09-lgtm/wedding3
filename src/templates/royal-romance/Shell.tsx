@@ -8,6 +8,7 @@ import { getCopy } from "@/lib/i18n";
 import { useGuestName } from "@/lib/use-guest-name";
 import type { InvitationData, Locale } from "@/types/invitation";
 import { FloatingNav } from "./FloatingNav";
+import { bodoni, jost } from "./fonts";
 import { Cover } from "./sections/Cover";
 
 const LOCALE_KEY = "wedding-locale";
@@ -69,12 +70,15 @@ export function Shell({ data, children }: { data: InvitationData; children: Reac
     // reducedMotion="user" removes transform/layout animation for people who ask for less motion.
     <MotionConfig reducedMotion="user">
       <InvitationContext.Provider value={{ data, copy, opened, guestName, locale, setLocale }}>
-        <LanguageSwitcher />
-        <AnimatePresence>{!opened && <Cover key="cover" onOpen={open} />}</AnimatePresence>
-        <main data-template="royal-romance" className="bg-deep font-sans text-ink">
-          {children}
-        </main>
-        <FloatingNav />
+        {/* This design's typefaces are scoped here (not on <html>), so other routes never load them. */}
+        <div className={`${bodoni.variable} ${jost.variable} font-sans`}>
+          <LanguageSwitcher />
+          <AnimatePresence>{!opened && <Cover key="cover" onOpen={open} />}</AnimatePresence>
+          <main data-template="royal-romance" className="bg-deep font-sans text-ink">
+            {children}
+          </main>
+          <FloatingNav />
+        </div>
       </InvitationContext.Provider>
     </MotionConfig>
   );

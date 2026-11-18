@@ -101,7 +101,8 @@ export function Hero() {
         >
           <span aria-hidden="true" className={`absolute inset-0 bottom-14 translate-x-3 translate-y-3 border border-moss/50 lg:bottom-20 ${SHAPES.leaf}`} />
           <div className={`relative aspect-[4/5] overflow-hidden bg-sage/40 lg:aspect-[4/5] ${SHAPES.leaf}`}>
-            <Photo asset={panorama} alt={describe(panorama, locale)} sizes="(min-width: 1024px) 40vw, 90vw" priority className="bot-photo" />
+            {/* Behind the gate: not preloaded and fetched at low priority, so it never competes with the gate photograph. */}
+            <Photo asset={panorama} alt={describe(panorama, locale)} sizes="(min-width: 1024px) 40vw, 90vw" loading="eager" fetchPriority="low" className="bot-photo" />
           </div>
           <div className="absolute -bottom-0 -left-1 aspect-[3/4] w-[38%] min-w-28 rotate-[-4deg] sm:-left-6">
             <div className={`relative h-full w-full overflow-hidden border-[5px] border-linen bg-sage/40 shadow-[0_18px_40px_-18px_rgba(28,45,36,0.6)] ${SHAPES.oval}`}>

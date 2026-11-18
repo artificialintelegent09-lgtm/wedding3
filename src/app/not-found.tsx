@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { bodoni, jost } from "./not-found-fonts";
 
 export default function NotFound() {
   return (
-    <main className="surface surface-oxblood relative grid min-h-screen place-items-center px-6 text-center text-paper">
+    <main className={`${bodoni.variable} ${jost.variable} surface surface-oxblood relative grid min-h-screen place-items-center px-6 text-center font-sans text-paper`}>
       <div>
         <p className="font-display text-6xl italic text-rose">Oh dear</p>
         <h1 className="mt-4 text-xs font-normal uppercase tracking-[0.36em] text-gold-light">Invitation not found</h1>

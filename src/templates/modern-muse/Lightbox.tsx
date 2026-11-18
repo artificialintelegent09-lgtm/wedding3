@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { useInvitation } from "@/components/InvitationContext";
 import type { GalleryImage } from "@/types/invitation";
 import { pad2 } from "./config";
+import { cormorant, manrope } from "./fonts";
 import { useMuse } from "./MuseContext";
 
 const SWIPE_DISTANCE = 60;
@@ -108,7 +109,8 @@ export function Lightbox({
           role="dialog"
           aria-modal="true"
           aria-label={copy.gallery.counter(index + 1, images.length)}
-          className="fixed inset-0 z-[100] flex flex-col bg-espresso/[0.98] font-sans text-ivory"
+          data-template="modern-muse"
+          className={`${cormorant.variable} ${manrope.variable} fixed inset-0 z-[100] flex flex-col bg-espresso/[0.98] font-sans text-ivory`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

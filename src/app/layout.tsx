@@ -1,26 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
 
-// High-contrast didone serif: couple names, dates, section titles, editorial statements.
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
-  display: "swap",
-});
-
-// Clean geometric sans: body text, event details, forms, navigation.
-const jost = Jost({
-  variable: "--font-jost",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  display: "swap",
-});
+// Public URL of the site, for canonical and Open Graph URLs. NEXT_PUBLIC_SITE_URL wins; on Vercel the production
+// domain is also exposed at build time, so previews never point at localhost.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
   title: "Digital Wedding Invitation",
   description: "A digital wedding invitation.",
 };
@@ -33,7 +21,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${jost.variable}`}>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

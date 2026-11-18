@@ -8,7 +8,7 @@ import { useGuestName } from "@/lib/use-guest-name";
 import type { InvitationData, Locale } from "@/types/invitation";
 import { getSections, pad2 } from "./config";
 import { getMuseCopy } from "./copy";
-import { cormorant, manrope } from "./fonts";
+import { cormorant, dropCap, manrope } from "./fonts";
 import { MuseContext, type MuseContextValue } from "./MuseContext";
 import { Nav } from "./Nav";
 import { Gate } from "./sections/Gate";
@@ -93,7 +93,7 @@ export function Shell({ data, children }: { data: InvitationData; children: Reac
         <MuseContext.Provider value={muse}>
           <div
             data-template="modern-muse"
-            className={`${cormorant.variable} ${manrope.variable} bg-espresso font-sans text-ink`}
+            className={`${cormorant.variable} ${manrope.variable} ${dropCap.variable} bg-espresso font-sans text-ink`}
           >
             <Nav />
             <AnimatePresence>{!opened && <Gate key="gate" />}</AnimatePresence>

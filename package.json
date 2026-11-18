@@ -8,7 +8,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "preview": "npx --yes serve out",
-    "images:optimize": "node scripts/optimize-images.mjs"
+    "images:optimize": "node scripts/optimize-images.mjs",
+    "images:responsive": "node scripts/responsive-images.mjs"
   },
   "dependencies": {
     "framer-motion": "^14.14.0",

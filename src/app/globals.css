@@ -66,6 +66,15 @@
   50% { transform: translateY(7px); opacity: 1; }
 }
 
+/*
+ * Typefaces are declared per template (each template has its own fonts.ts), never on <html>. These system defaults only keep
+ * text that sits outside any template (before hydration, error states) from falling back to the browser serif.
+ */
+:root {
+  --font-jost: ui-sans-serif, system-ui, sans-serif;
+  --font-bodoni: Georgia, serif;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
@@ -260,7 +269,7 @@ body:has([data-template="modern-muse"]) {
 /* Drop cap for the first paragraph of a chronicle chapter. */
 .muse-dropcap::first-letter {
   float: left;
-  font-family: var(--font-display);
+  font-family: var(--font-muse-dropcap), "Didot", Georgia, serif;
   font-size: 4.6em;
   line-height: 0.78;
   padding: 0.06em 0.1em 0 0;
@@ -297,8 +306,8 @@ body:has([data-template="modern-muse"]) {
   --tpl-rose: #c99d98;
   --tpl-rose-light: #ecdcd8;
   --tpl-rose-deep: #86584f;
-  --tpl-font-display: var(--font-botanical-serif);
-  --tpl-font-sans: var(--font-botanical-sans);
+  --tpl-font-display: var(--font-cormorant);
+  --tpl-font-sans: var(--font-manrope);
 }
 
 @theme inline {

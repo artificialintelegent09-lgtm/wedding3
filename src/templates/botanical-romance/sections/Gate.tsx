@@ -57,14 +57,17 @@ export function Gate() {
 
           {/* The doorway: arch, outline, foliage, photograph. */}
           <motion.div
-            variants={item}
+            // Visible in the server-rendered HTML (transform only, never opacity: 0): the arch photograph is the
+            // largest element on the first screen, so it must paint without waiting for JavaScript.
+            initial={{ y: 20 }}
+            animate={{ y: 0, transition: { duration: 1, ease: soft, delay: 0.2 } }}
             exit={{ scale: 2.1, opacity: 0, transition: { duration: 1.4, ease: [0.65, 0, 0.35, 1] } }}
             className="relative mt-5 aspect-[3/4] h-[min(42svh,30rem)] sm:mt-7 lg:h-[min(54svh,34rem)]"
           >
             <span aria-hidden="true" className="absolute -inset-2 rounded-t-[999px] border border-moss/60" />
             <span aria-hidden="true" className="absolute -inset-4 rounded-t-[999px] border border-moss/30" />
             <div className="relative h-full w-full overflow-hidden rounded-t-[999px] bg-sage/40">
-              <Photo asset={photo} alt={describe(photo, locale)} sizes="(min-width: 1024px) 30vw, 70vw" priority className="bot-photo" />
+              <Photo asset={photo} alt={describe(photo, locale)} sizes="(min-width: 1024px) 30vw, 70vw" priority fetchPriority="high" className="bot-photo" />
               <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-forest/45 via-transparent to-forest/10" />
             </div>
             <CornerSpray trigger="mount" delay={0.5} className="pointer-events-none absolute -left-[4.5rem] -top-8 h-44 w-44 sm:-left-24 sm:h-56 sm:w-56" />
